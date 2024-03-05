@@ -89,14 +89,6 @@ int inicializaLinha (linha* lin, int linha_num, char* linha_texto) { //melhor al
     return 1;
 }
 
-/*linha* inicializaLinha (int linha_num, char* linha_texto) {
-    linha* lin = (linha*) malloc (sizeof(linha));
-    lin->num = linha_num;
-    lin->prox = NULL;
-    lin->texto = linha_texto;
-    return lin;
-} */
-
 int addPalavraArvore (no_arvore* novo, arvore* arvore) {
     no_arvore* raiz = arvore->raiz;
     //arvore vazia
@@ -430,7 +422,6 @@ int main(int argc, char ** argv){
                     printf("Tempo de busca: %f ms\n", total_t);
                     free(buffer);
                     free(copia_buffer);
-                    //printf(">");
                 }
                 if(strcmp(argv[2], "lista") == 0) {
                     start_t = clock();
@@ -440,7 +431,6 @@ int main(int argc, char ** argv){
                     printf("Tempo de busca: %f ms\n",total_t);
                     free(buffer);
                     free(copia_buffer);
-                    //printf(">");
                 }
                 
                 printf(">");
