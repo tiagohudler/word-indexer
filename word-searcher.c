@@ -157,13 +157,13 @@ no_arvore* buscaArvore(char* palavra, arvore arvore) {
 
 void printaNoArvore(no_arvore* no, char* pal_busca){
     if (!no) {
-		printf("Palavra '%s' nao encontrada.\n", pal_busca);
+		printf("Word '%s' not found.\n", pal_busca);
 		return;
 	}
 	linha* linha_aux = no->linhas;
-	printf("Existem %i ocorrências da palavra '%s' na(s) seguinte(s) linha(s):\n\n", no->aparicoes, no->palavra);
+	printf("\nThere are %i occurrences of the word '%s' in the following line(s):\n", no->aparicoes, no->palavra);
 	while (linha_aux){
-		printf("%05i: %s \n", linha_aux->num, linha_aux->texto);
+		printf("\n%05i: %s \n", linha_aux->num, linha_aux->texto);
 		linha_aux = linha_aux->prox;
 	}
 	return;	
@@ -281,13 +281,13 @@ Boolean inserelista(ListaLigada * lista, no_lista* e){
 
 void printaNoLista(no_lista* no, char * pal_busca){
 	if (!no) {
-		printf("Palavra '%s' nao encontrada.\n", pal_busca);
+		printf("Word '%s' not found.\n", pal_busca);
 		return;
 	}
 	linha* linha_aux = no->linhas;
-	printf("Existem %i ocorrências da palavra '%s' na(s) seguinte(s) linha(s):\n", no->aparicoes, no->palavra);
+	printf("\nThere are %i occurrences of the word '%s' in the following line(s):\n", no->aparicoes, no->palavra);
 	while (linha_aux){
-		printf("%05i: %s \n", linha_aux->num, linha_aux->texto);
+		printf("\n%05i: %s \n", linha_aux->num, linha_aux->texto);
 		linha_aux = linha_aux->prox;
 	}
 	return;
@@ -322,10 +322,10 @@ int main(int argc, char ** argv){
 
 
         in = fopen(argv[1], "r");
-    if ((strcmp(argv[2], "lista") != 0) && (strcmp(argv[2], "arvore") != 0)) {
-                    printf("Parametro invalido\n");
-                    return 0;
-                }
+        if ((strcmp(argv[2], "list") != 0) && (strcmp(argv[2], "tree") != 0)) {
+            printf("Invalid parameter\n");
+            return 0;
+        }
         printf(">>>>> Carregando arquivo...\n");
         start_t = clock();
         contador_line = 0;
@@ -349,7 +349,7 @@ int main(int argc, char ** argv){
                 linha* lin = (linha*)malloc(sizeof(linha));
                 inicializaLinha(lin, contador_line + 1, linha_eterna);
 
-                if ((comparacao = strcmp(argv[2], "arvore") == 0)) {
+                if ((comparacao = strcmp(argv[2], "tree") == 0)) {
                     //cria ponteiro guardável para cada palavra
                     char* constpalavra = (char*)malloc(sizeof(palavra));
                     strcpy(constpalavra, palavra);
@@ -358,7 +358,7 @@ int main(int argc, char ** argv){
                     inicializaNoArvore(no_novo, constpalavra, lin);
                     addPalavraArvore(no_novo, &arvore_nova);
                 }
-                if ((comparacao = strcmp(argv[2], "lista") == 0)) {
+                if ((comparacao = strcmp(argv[2], "list") == 0)) {
                     char* constpalavra = (char*)malloc(sizeof(palavra));
                     strcpy(constpalavra, palavra);
 
@@ -366,20 +366,20 @@ int main(int argc, char ** argv){
                     inserelista(lista, no_novo);
 
                 }
-                
+                    
 
-                printf("\t\t'%s'\n", palavra);
+                    printf("\t\t'%s'\n", palavra);
+                }
+
+                contador_line++;
             }
-
-            contador_line++;
-        }
         end_t = clock();
         total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-        printf(">>>>> Arquivo carregado!\n");
-        printf("Tipo de indice: '%s'\n",indice);
-        printf("Arquivo texto '%s'\n", texto);
-        printf("Numero de linhas no arquivo: %d\n", contador_line);
-        printf("Tempo para carregar o arquivo e construir o indice: %.4f ms\n\n\n", total_t * 1000);
+        printf(">>>>> File loaded!\n");
+        printf("Indexing method: '%s'\n",indice);
+        printf("Text file: '%s'\n", texto);
+        printf("Number of lines in the file: %d\n", contador_line);
+        printf("Time to load the file: %.4f ms\n\n\n", total_t * 1000);
         printf(">");
         
         char* aux;
@@ -404,31 +404,31 @@ int main(int argc, char ** argv){
             }
 
             //condicoes de verificação
-            if (strcmp(input[0], "fim") == 0) break;
+            if (strcmp(input[0], "end") == 0) break;
 
-            if (i > 2 || strcmp(input[0], "busca") != 0) {
-                printf("Opcao invalida!\n");
+            if (i > 2 || strcmp(input[0], "search") != 0) {
+                printf("Invalid option!\n");
                 printf(">");
                 free(buffer);
                 free(copia_buffer);
                 continue;
             }
             else {
-                if(strcmp(argv[2], "arvore") == 0) {
+                if(strcmp(argv[2], "tree") == 0) {
                     start_t = clock();
                     printaNoArvore(buscaArvore(input[1], arvore_nova), input[1]);
                     end_t = clock();
                     total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-                    printf("Tempo de busca: %f ms\n", total_t);
+                    printf("Search time: %f ms\n", total_t);
                     free(buffer);
                     free(copia_buffer);
                 }
-                if(strcmp(argv[2], "lista") == 0) {
+                if(strcmp(argv[2], "list") == 0) {
                     start_t = clock();
                     printaNoLista(buscaLista(lista, input[1]), input[1]);
                     end_t = clock();
                     total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-                    printf("Tempo de busca: %f ms\n",total_t);
+                    printf("Search time: %f ms\n",total_t);
                     free(buffer);
                     free(copia_buffer);
                 }
