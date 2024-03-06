@@ -379,7 +379,7 @@ int main(int argc, char ** argv){
         printf("Tipo de indice: '%s'\n",indice);
         printf("Arquivo texto '%s'\n", texto);
         printf("Numero de linhas no arquivo: %d\n", contador_line);
-        printf("Tempo para carregar o arquivo e construir o indice: %.4f ms\n", total_t * 1000);
+        printf("Tempo para carregar o arquivo e construir o indice: %.4f ms\n\n\n", total_t * 1000);
         printf(">");
         
         char* aux;
@@ -432,12 +432,12 @@ int main(int argc, char ** argv){
                     free(buffer);
                     free(copia_buffer);
                 }
-                
+                printf("\n=============================\n\n");
                 printf(">");
             }
             
         }
-
+        
 
         return 0;
     }
